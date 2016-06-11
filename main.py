@@ -1,5 +1,26 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
+import random
+
+LATIN_QUOTES = [
+    "CAESAR NON SUPRA GRAMMATICOS",
+    "CARPE NOCTEM",
+    "CARTHAGO DELENDA EST",
+    "CASTIGAT RIDENDO MORES",
+    "CORVUS OCULUM CORVI NON ERUIT",
+    "CUI BONO?",
+    "ET IN ARCADIA EGO",
+    "EX NIHILO NIHIL FIT",
+    "FELIX CULPA",
+    "HANNIBAL AD PORTAS",
+    "HIC MANEBIMUS OPTIME",
+    "HOMO SUM HUMANI A ME NIHIL ALIENUM PUTO",
+    "IGNOTUM PER IGNOTIUS",
+    "IMPERIUM IN IMPERIO",
+    "PANEM ET CIRCENSES",
+    "VELOCIUS QUAM ASPARAGI COQUANTUR",
+    "VOX NIHILI",
+]
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -19,7 +40,7 @@ def help(bot, update):
 
 
 def echo(bot, update):
-    bot.sendMessage(update.message.chat_id, text=update.message.text)
+    bot.sendMessage(update.message.chat_id, text=random.choice(LATIN_QUOTES))
 
 
 def error(bot, update, error):
