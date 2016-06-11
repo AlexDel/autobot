@@ -22,5 +22,5 @@ def parse_request(message):
 
 	tree = chunker.parse(taggedRequest)
 
-	car = list(tree.subtrees(lambda t: t.label() == 'CAR'))
+	car = list(tree.subtrees(lambda t: t.label() == 'VENDOR'))
 	return car

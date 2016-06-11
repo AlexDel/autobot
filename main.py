@@ -1,27 +1,8 @@
 from telegramwrap import Bot
 import nlrequestprocess as nl
+from fetch import get_part_link
 import logging
 import random
-
-LATIN_QUOTES = [
-    "CAESAR NON SUPRA GRAMMATICOS",
-    "CARPE NOCTEM",
-    "CARTHAGO DELENDA EST",
-    "CASTIGAT RIDENDO MORES",
-    "CORVUS OCULUM CORVI NON ERUIT",
-    "CUI BONO?",
-    "ET IN ARCADIA EGO",
-    "EX NIHILO NIHIL FIT",
-    "FELIX CULPA",
-    "HANNIBAL AD PORTAS",
-    "HIC MANEBIMUS OPTIME",
-    "HOMO SUM HUMANI A ME NIHIL ALIENUM PUTO",
-    "IGNOTUM PER IGNOTIUS",
-    "IMPERIUM IN IMPERIO",
-    "PANEM ET CIRCENSES",
-    "VELOCIUS QUAM ASPARAGI COQUANTUR",
-    "VOX NIHILI",
-]
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -41,7 +22,9 @@ def help(bot, update):
 
 
 def parse_message(bot, update):
-    bot.sendMessage(update.message.chat_id, text=str(nl.parse_request(update.message.text)))
+		vendor = nl.parse_request(update.message.text)[0][0][0]
+		link = get_part_link(vendor, 'accord', 'TODO')
+		bot.sendMessage(update.message.chat_id, text=link)
 
 
 def error(bot, update, error):
