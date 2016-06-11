@@ -1,7 +1,7 @@
 import nltk
 from nltk.chunk import RegexpParser
 
-testString = 'honda accord задняя стойка'
+testString = 'задняя стойка от honda accord speed'
 
 tagPatterns = [
    (r'(honda)$','VENDOR'),
@@ -15,9 +15,11 @@ taggedRequest = tagger.tag(nltk.word_tokenize(testString))
 
 chunker = RegexpParser(r'''
     S: {<CAR> <PREP>? <PART_NAME>}
+    MODEL: {<MODEL>+}
     CAR: {<VENDOR> <MODEL>}
     PART_NAME: {<PART_NAME>+}
 ''')
 
 tree = chunker.parse(taggedRequest)
+
 print(tree)
