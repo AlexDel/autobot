@@ -16,11 +16,12 @@ taggedRequest = tagger.tag(nltk.word_tokenize(testString))
 chunker = RegexpParser(r'''
     S: {<CAR> <PREP>? <PART_NAME>}
     MODEL: {<MODEL>+}
+    VENDOR: {<VENDOR>}
     CAR: {<VENDOR> <MODEL>}
     PART_NAME: {<PART_NAME>+}
 ''')
 
 tree = chunker.parse(taggedRequest)
 
-car = list(tree.subtrees(lambda t: t.label() == 'CAR'))
+car = list(tree.subtrees(lambda t: t.label() == 'VENDOR'))
 print(car[0].leaves())
