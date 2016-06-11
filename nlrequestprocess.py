@@ -22,4 +22,5 @@ chunker = RegexpParser(r'''
 
 tree = chunker.parse(taggedRequest)
 
-print(tree)
+car = list(tree.subtrees(lambda t: t.label() == 'CAR'))
+print(car[0].leaves())
