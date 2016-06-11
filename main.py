@@ -1,4 +1,5 @@
 from telegramwrap import Bot
+import nlrequestprocess as nl
 import logging
 import random
 
@@ -39,8 +40,8 @@ def help(bot, update):
     bot.sendMessage(update.message.chat_id, text='Help!')
 
 
-def speak_latin(bot, update):
-    bot.sendMessage(update.message.chat_id, text=random.choice(LATIN_QUOTES))
+def parse_message(bot, update):
+    bot.sendMessage(update.message.chat_id, text=str(nl.parse_request(update.message.text)))
 
 
 def error(bot, update, error):
@@ -48,7 +49,7 @@ def error(bot, update, error):
 
 
 def main():
-    bot = Bot(start, help, speak_latin, error)
+    bot = Bot(start, help, parse_message, error)
 
 if __name__ == '__main__':
     main()
