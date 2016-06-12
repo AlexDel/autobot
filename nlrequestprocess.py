@@ -3,7 +3,7 @@ from nltk.chunk import RegexpParser
 
 def parse_request(message):
 	tagPatterns = [
-	   (r'(honda)$','VENDOR'),
+	   (r'(honda|toyota|ford|kia|hyundai|audi|bmw|opel|mitsubishi|mazda|skoda|skoda|subaru)$','VENDOR'),
 	   (r'([a-zA-Z0-9]+)$','MODEL'),
 	   (r'(от|для)$','PREP'),
 		(r'(нах|бля|твою мать)$','PROFANITY'),
