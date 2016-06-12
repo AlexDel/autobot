@@ -1,6 +1,5 @@
 from nltk.metrics.distance import edit_distance
 from statistics import mean
-import operator
 
 
 def get_closest_word(list, word):
@@ -20,6 +19,4 @@ def calc_phrase_distance(phrase1, phrase2):
 def get_closest_phrase(phrases_list, phrase):
 	distances = {w: dist for (w, dist) in map(lambda x: (x, calc_phrase_distance(phrase, x)), phrases_list)}
 	print(distances)
-	return min(distances, key= distances.get)
-
-print(get_closest_phrase(['привет я', 'просто ты','да да'], 'привет мир'))
+	return min(distances, key=distances.get)

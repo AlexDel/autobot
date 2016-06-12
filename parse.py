@@ -16,4 +16,18 @@ def parse_models_list(text):
     return models_list
 
 def parse_complectations_list(text):
-	result = __parse_list(text, '')
+	result = __parse_list(text, '#form1 tr td a')
+	# TODO: it's better to have ordered dict with complectation names here
+	complectations_list = [link for link in map(lambda x: x.get('href'), result)]
+	return complectations_list
+
+def parse_parts_types_list(text):
+	result = __parse_list(text, "ul li span a")
+	parts_types_list = {model: link for (model, link) in map(lambda x: (list(x.itertext())[0], x.get('href')), result)}
+	return parts_types_list
+
+def parse_parts_list(text):
+	result = __parse_list(text, 'td.lnkPrice a')
+	# TODO: it's better to have ordered dict with complectation names here
+	parts_list = [link for link in map(lambda x: x.get('href'), result)]
+	return parts_list

@@ -22,8 +22,8 @@ def help(bot, update):
 
 
 def parse_message(bot, update):
-		vendor = nl.parse_request(update.message.text)[0][0][0]
-		link = get_part_link(vendor, 'accord', 'TODO')
+		request = nl.parse_request(update.message.text)
+		link = get_part_link(request['vendor'], request['model'], request['part_name'])
 		bot.sendMessage(update.message.chat_id, text=link)
 
 

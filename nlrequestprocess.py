@@ -24,7 +24,19 @@ def parse_request(message):
 
 	car = list(tree.subtrees(lambda t: t.label() == 'VENDOR'))
 	parsed_request = {}
-	parsed_request['vendor'] = list(tree.subtrees(lambda t: t.label() == 'VENDOR'))[0].leaves()[0][0]
-	parsed_request['model'] = ' '.join([leave[0] for leave in list(tree.subtrees(lambda t: t.label() == 'MODEL'))[0].leaves()])
-	parsed_request['part_name'] = ' '.join([leave[0] for leave in list(tree.subtrees(lambda t: t.label() == 'PART_NAME'))[0].leaves()])
+
+	# Hack with try except
+	try:
+		parsed_request['vendor'] = list(tree.subtrees(lambda t: t.label() == 'VENDOR'))[0].leaves()[0][0]
+	except Exception:
+		parsed_request['vendor'] = None
+	try:
+		parsed_request['model'] = ' '.join([leave[0] for leave in list(tree.subtrees(lambda t: t.label() == 'MODEL'))[0].leaves()])
+	except Exception:
+		parsed_request['model'] = None
+	try:
+		parsed_request['part_name'] = ' '.join([leave[0] for leave in list(tree.subtrees(lambda t: t.label() == 'PART_NAME'))[0].leaves()])
+	except Exception:
+		parsed_request['part_name'] = None
+
 	return parsed_request
