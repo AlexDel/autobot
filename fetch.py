@@ -43,7 +43,7 @@ def get_part_link(vendor, model, part):
 	parts = parse.parse_parts_list(parts_response.text)
 	# Getting the first (for simplicity) complectation in the list
 	if (not parts):
-		"Не удалось найти такую запчасть."
+		"Не удалось найти такую запчасть"
 
 	part_link = 'http://exist.ru{}'.format(parts[0])
 
