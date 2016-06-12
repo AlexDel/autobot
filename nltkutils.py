@@ -4,9 +4,8 @@ import operator
 
 
 def get_closest_word(list, word):
-		distances = {w: dist for (w, dist) in map(lambda x: (x, edit_distance(word, x.split()[0])), list)}
-		# There should be 'min' but WTF?!
-		return max(distances)
+	distances = {w: dist for (w, dist) in map(lambda x: (x, edit_distance(word, x.split()[0])), list)}
+	return min(distances, key=distances.get)
 
 def calc_phrase_distance(phrase1, phrase2):
 	tokens1 = phrase1.split()
@@ -18,5 +17,9 @@ def calc_phrase_distance(phrase1, phrase2):
 
 	return sum(tokens_distances)/mean(map(len,[phrase1, phrase2]))
 
-def get_closest_phrase(phrase, phrases_list):
-	return True
+def get_closest_phrase(phrases_list, phrase):
+	distances = {w: dist for (w, dist) in map(lambda x: (x, calc_phrase_distance(phrase, x)), phrases_list)}
+	print(distances)
+	return min(distances, key= distances.get)
+
+print(get_closest_phrase(['привет я', 'просто ты','да да'], 'привет мир'))
