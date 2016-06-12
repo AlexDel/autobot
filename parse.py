@@ -13,7 +13,6 @@ def __parse_list(text, css):
 def parse_models_list(text):
     result = __parse_list(text, 'div dd a')
     models_list = {model.split()[0]: link for (model, link) in map(lambda x: (list(x.itertext())[0], x.get('href')), result)}
-    print(models_list)
     return models_list
 
 def parse_complectations_list(text):
