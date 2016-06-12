@@ -13,6 +13,7 @@ def get_part_link(vendor, model, part):
 	# Getting list of models from HTML
 	models = parse.parse_models_list(cars_response.text)
 	model_key = nltkutils.get_closest_word(models.keys(), model)
+    
   # Getting model link
 	model_link = models[model_key]
 	return 'http://exist.ru{}'.format(model_link)
