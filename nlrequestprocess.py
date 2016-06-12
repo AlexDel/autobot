@@ -6,6 +6,7 @@ def parse_request(message):
 	   (r'(honda)$','VENDOR'),
 	   (r'([a-zA-Z0-9]+)$','MODEL'),
 	   (r'(от|для)$','PREP'),
+		(r'(нах|бля|твою мать)$','PROFANITY'),
 	   (r'([а-яА-Я]+)$','PART_NAME'),
 	]
 
@@ -17,6 +18,7 @@ def parse_request(message):
 	    MODEL: {<MODEL>+}
 	    VENDOR: {<VENDOR>}
 	    CAR: {<VENDOR> <MODEL>}
+	    PROFANITY: {<PROFANITY>+}
 	    PART_NAME: {<PART_NAME>+}
 	''')
 
@@ -38,5 +40,12 @@ def parse_request(message):
 		parsed_request['part_name'] = ' '.join([leave[0] for leave in list(tree.subtrees(lambda t: t.label() == 'PART_NAME'))[0].leaves()])
 	except Exception:
 		parsed_request['part_name'] = None
+	try:
+		if len(list(tree.subtrees(lambda t: t.label() == 'PROFANITY'))):
+			parsed_request['profanity'] = True
+		else:
+			parsed_request['profanity'] = False
+	except Exception:
+		parsed_request['profanity'] = False
 
 	return parsed_request
