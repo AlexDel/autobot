@@ -7,7 +7,7 @@ import nltkutils
 def get_part_link(vendor, model, part):
 	""" Gets a link to requested part """
 	cars_link = 'http://exist.ru/cat/TecDoc/Cars/{}?all=1'.format(vendor)
-	if (not model):
+	if (model == None):
 		return "Машин {} много. Найди свою в списке: {} 😊".format(vendor, cars_link) 
 
 	cars_response = requests.get(cars_link)
@@ -16,13 +16,13 @@ def get_part_link(vendor, model, part):
 	
 	# Getting list of models from HTML
 	models = parse.parse_models_list(cars_response.text)
-	model_key = nltkutils.get_closest_word(models.keys(), model)
+	model_key = nltkutils.get_closest_phrase(models.keys(), model)
 
   # Getting model link
 	model_link = 'http://exist.ru{}'.format(models[model_key])
 
-	if (not part):
-		"Запчасти на {}: {}".format(model_key, model_link)
+	if (part == None):
+		return "Запчасти на {}: {}".format(model_key, model_link)
 
 	# Getting list of complectations from HTML
 	complectations_response = requests.get(model_link)

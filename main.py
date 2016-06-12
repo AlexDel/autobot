@@ -28,11 +28,14 @@ def help(bot, update):
 
 
 def parse_message(bot, update):
-		request = nl.parse_request(update.message.text)
-		if (request['profanity']):
-			bot.sendMessage(update.message.chat_id, text=random.choice(PROFANITY_ANSWERS))
-		link = get_part_link(request['vendor'], request['model'], request['part_name'])
-		bot.sendMessage(update.message.chat_id, text=link)
+		try:
+			request = nl.parse_request(update.message.text)
+			if (request['profanity']):
+				bot.sendMessage(update.message.chat_id, text=random.choice(PROFANITY_ANSWERS))
+			link = get_part_link(request['vendor'], request['model'], request['part_name'])
+			bot.sendMessage(update.message.chat_id, text=link)
+		except Exception:
+			bot.sendMessage(update.message.chat_id, text="Иногда что-то идёт не так. Например -- сейчас.")
 
 
 def error(bot, update, error):
