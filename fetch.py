@@ -8,11 +8,11 @@ def get_part_link(vendor, model, part):
 	""" Gets a link to requested part """
 	cars_link = 'http://exist.ru/cat/TecDoc/Cars/{}?all=1'.format(vendor)
 	if (not model):
-		return "Список автомобилей {}: {}".format(vendor, cars_link) 
+		return "Машин {} много. Найди свою в списке: {} 😊".format(vendor, cars_link) 
 
 	cars_response = requests.get(cars_link)
 	if cars_response.status_code == 404:
-		return "Такой производитель слишком неизвестен :)"
+		return "Такой производитель слишком неизвестен 😊"
 	
 	# Getting list of models from HTML
 	models = parse.parse_models_list(cars_response.text)
@@ -43,12 +43,12 @@ def get_part_link(vendor, model, part):
 	parts = parse.parse_parts_list(parts_response.text)
 	# Getting the first (for simplicity) complectation in the list
 	if (not parts):
-		"Не удалось найти такую запчасть"
+		"Не удалось найти такую запчасть 😞"
 
 	part_link = 'http://exist.ru{}'.format(parts[0])
 
 	# Return link to search page
-	return "{} для {}: {}".format(part_type_key, model_key, part_link)
+	return "Нашлись {} для {}: {}".format(part_type_key, model_key, part_link)
 
 
 if __name__ == "__main__":

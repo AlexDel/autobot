@@ -10,6 +10,11 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
+PROFANITY_ANSWERS = [
+	"Чтобы я работал быстрее, купите премиум подписку. Бе.",
+	"И не надейся, тест Тьюринга я пока не прохожу.",
+	"С такими фразочками тебе к Яндексу."
+]
 
 # Define a few command handlers. These usually take the two arguments bot and
 # update. Error handlers also receive the raised TelegramError object in error.
@@ -24,6 +29,8 @@ def help(bot, update):
 
 def parse_message(bot, update):
 		request = nl.parse_request(update.message.text)
+		if (request['profanity']):
+			bot.sendMessage(update.message.chat_id, text=random.choice(PROFANITY_ANSWERS))
 		link = get_part_link(request['vendor'], request['model'], request['part_name'])
 		bot.sendMessage(update.message.chat_id, text=link)
 
