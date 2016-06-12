@@ -23,4 +23,8 @@ def parse_request(message):
 	tree = chunker.parse(taggedRequest)
 
 	car = list(tree.subtrees(lambda t: t.label() == 'VENDOR'))
-	return car
+	parsed_request = {}
+	parsed_request['vendor'] = list(tree.subtrees(lambda t: t.label() == 'VENDOR'))[0].leaves()[0][0]
+	parsed_request['model'] = ' '.join([leave[0] for leave in list(tree.subtrees(lambda t: t.label() == 'MODEL'))[0].leaves()])
+	parsed_request['part_name'] = ' '.join([leave[0] for leave in list(tree.subtrees(lambda t: t.label() == 'PART_NAME'))[0].leaves()])
+	return parsed_request
